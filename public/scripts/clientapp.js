@@ -48,8 +48,7 @@ function getData() {
 function appendPeople(info) {
     $('#people').empty();
     for(var i = 0; i < info.length; i++) {
-        $('#people').append('<p>' + info[i].name + '<br>' + info[i].address + '<br>' + info[i].city + ', ' + info[i].state
-            + ' ' + info[i].zip_code + '</p>');
+        $('#people').append('<p>' + info[i].name + '<br>' + info[i].address + '<br>' + info[i].city + ', ' +
+            info[i].state + ' ' + info[i].zip_code + '</p>');
     }
-
 }

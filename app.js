@@ -28,10 +28,9 @@ app.get('/people', function(req, res) {
 
         // close connection
         query.on('end', function() {
-            client.end();
+            client.end(); //because we're doing .end here we don't need to do done
             return res.json(results);
         });
-
         if(err) {
             console.log(err);
         }
@@ -47,10 +46,11 @@ app.post('/people', function(req, res) {
         zip_code: req.body.zip_code
     };
 
-    pg.connect(connectionString, function(err, client) {
+    pg.connect(connectionString, function(err, client, done) {
         client.query("INSERT INTO people (name, address, city, state, zip_code) VALUES ($1, $2, $3, $4, $5)",
             [addPerson.name, addPerson.address, addPerson.city, addPerson.state, addPerson.zip_code],
             function (err, result) {
+                done(); //done closes the connection to the database
                 if(err) {
                     console.log("Error inserting data: ", err);
                     res.send(false);
