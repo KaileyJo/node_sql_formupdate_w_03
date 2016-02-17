@@ -48,15 +48,14 @@ app.post('/people', function(req, res) {
     };
 
     pg.connect(connectionString, function(err, client) {
-        client.query("INSERT INTO people (name, address, city, state, zip_code) VALUES ($1, $2, $3, $4, $5) RETURNING" +
-            " id",
+        client.query("INSERT INTO people (name, address, city, state, zip_code) VALUES ($1, $2, $3, $4, $5)",
             [addPerson.name, addPerson.address, addPerson.city, addPerson.state, addPerson.zip_code],
             function (err, result) {
                 if(err) {
                     console.log("Error inserting data: ", err);
                     res.send(false);
                 } else {
-                    res.send(result); //here??????
+                    res.send(result);
                 }
             });
     });
